@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { TextField, Button, Checkbox, FormControlLabel, FormHelperText } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import Captcha from '../../../assets/captcha.png';
@@ -89,7 +89,7 @@ const AadhaarForm = () => {
   {errors.agree && <FormHelperText style={{color: '#DF6969'}}>{errors.agree}</FormHelperText>}
 
         <div style={{ display: 'flex' }}>
-          <img src={Captcha} style={{ width: '90px', height: 'auto' }} />
+          <img alt="captcha" src={Captcha} style={{ width: '90px', height: 'auto' }} />
           <TextField
             label="Captcha"
             variant="outlined"

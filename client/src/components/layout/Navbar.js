@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { AppBar, Toolbar, Typography, Button, IconButton, Box, InputBase } from '@mui/material';
+import { AppBar, Toolbar, Button, IconButton, Box } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../assets/NHALogo.svg';
 import logo2 from '../../assets/AbdmLogo.svg';

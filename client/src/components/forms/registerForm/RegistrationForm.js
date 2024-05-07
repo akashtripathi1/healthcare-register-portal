@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { TextField, Button, ToggleButtonGroup, IconButton , ToggleButton } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { ToggleButtonGroup, IconButton , ToggleButton } from '@mui/material';
 import AadhaarForm from './AadhaarForm'; // Assuming this is the import path for the Aadhaar form
 import DrivingLicenseForm from './DrivingLicenseForm'; // Assuming this is the import path for the Driving License form
 import TextSnippetIcon from '@mui/icons-material/TextSnippet';
@@ -20,7 +19,7 @@ const RegistrationForm = () => {
         style={{ marginBottom: 20 }}
       >
         <ToggleButton value="aadhaar" aria-label="Aadhaar">
-        <img src={AadhaarIcon} style={{ width: '50px', height: 'auto' }} />
+        <img alt="aadhaar" src={AadhaarIcon} style={{ width: '50px', height: 'auto' }} />
           Aadhaar
         </ToggleButton>
         <ToggleButton value="drivingLicense" aria-label="Driving License">

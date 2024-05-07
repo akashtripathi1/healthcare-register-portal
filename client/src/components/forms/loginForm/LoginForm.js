@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect, useContext } from 'react';
 import { TextField, Button, ToggleButtonGroup, ToggleButton } from '@mui/material';
-import { Link, useNavigate, Navigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import AuthContext from '../../../context/auth/authContext';
 
 import UserIcon from '../../../assets/personLogo.png';
