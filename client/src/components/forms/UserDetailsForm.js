@@ -122,13 +122,9 @@ const UserDetailsForm = () => {
 
       await register(user);
 
-      // if (error) { // Check if the API responded with a message
-      //   setMessage(error);
-      // } else {
-      //   setMessage('Unexpected error, please try again later.');
-      // }
     }
   };
+  
   useEffect(() => {
     if (error) {
       setMessage(error);

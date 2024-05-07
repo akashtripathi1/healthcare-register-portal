@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect, useContext } from 'react';
 import { TextField, Button, ToggleButtonGroup, ToggleButton } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthContext from '../../../context/auth/authContext';
+import Alerts from '../../layout/Alerts';
 
 import UserIcon from '../../../assets/personLogo.png';
 import MobileIcon from '../../../assets/phoneLogo.png';
@@ -12,7 +13,9 @@ const LoginForm = () => {
   const [errors, setErrors] = useState({});
   const [formErrorMessage, setFormErrorMessage] = useState('');
   const navigate = useNavigate();
-  const { login, isAuthenticated } = useContext(AuthContext);
+  const { login, isAuthenticated, error , clearErrors } = useContext(AuthContext);
+  const [message, setMessage] = useState('');
+
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -59,12 +62,19 @@ const LoginForm = () => {
     return isValid;
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
+    setMessage('');
     if (validateForm()) {
-      login({ username: user.username, password: user.password });
+      await login({ username: user.username, password: user.password });
     }
   };
+  useEffect(() => {
+    if (error) {
+      setMessage(error);
+      clearErrors();  // Clear the error after it's been handled to prevent old error messages from persisting.
+    }
+  }, [error, clearErrors]);
 
   const onReset = () => {
     setUser({
@@ -77,6 +87,8 @@ const LoginForm = () => {
 
   return (
     <Fragment>
+        <Alerts message={message} />
+
       <form onSubmit={onSubmit}>
         <div style={{ margin: 'auto', width: '45%', padding: 20, boxShadow: '3px 3px 6px rgba(0, 0, 0, 0.2)' }}>
           <h1>Login to National Healthcare Providers Registry</h1>
