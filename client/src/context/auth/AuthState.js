@@ -30,7 +30,14 @@ const AuthState = props => {
     aadhaar: null,
     aadhaarAuth: false
   };
-  axios.defaults.baseURL = 'http://localhost:5000';
+  // axios.defaults.baseURL = 'http://localhost:5000';
+
+  if (process.env.NODE_ENV === 'production') {
+    axios.defaults.baseURL = 'https://limitless-tor-92113-f49db8bf78f3.herokuapp.com';
+} else {
+    axios.defaults.baseURL = 'http://localhost:5000';
+}
+
 
   const [state, dispatch] = useReducer(authReducer, initialState);
 
@@ -107,7 +114,7 @@ const AuthState = props => {
     };
 
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/login', formData, config);
+      const res = await axios.post('/api/auth/login', formData, config);
 
       dispatch({
         type: LOGIN_SUCCESS,
