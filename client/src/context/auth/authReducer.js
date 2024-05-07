@@ -50,6 +50,7 @@ const authreducer = (state, action) => {
       };
     case REGISTER_FAIL:
       localStorage.removeItem('token');
+      console.log(action.payload)
       console.log('register fail')
       return {
         ...state,

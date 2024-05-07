@@ -10,7 +10,7 @@ import Alerts from '../layout/Alerts';
 
 const UserDetailsForm = () => {
   const authContext = useContext(AuthContext);
-  const { aadhaar, register, isAuthenticated, aadhaarAuth, logout } = authContext;
+  const { aadhaar, register, isAuthenticated, aadhaarAuth, logout, error, clearErrors } = authContext;
   const navigate = useNavigate();
 
   const [message, setMessage] = useState('');
@@ -58,7 +58,7 @@ const UserDetailsForm = () => {
     if (isAuthenticated) {
       // Set the message immediately
       setMessage('Registration Successful! Redirecting to homepage...');
-      
+
       // Delay navigation by 5 seconds
       const timerId = setTimeout(() => {
         // Navigate to home after 5 seconds
@@ -66,14 +66,14 @@ const UserDetailsForm = () => {
         logout();
         console.log("Redirecting to home in 3 seconds...");
       }, 3000); // 3000 milliseconds = 3 seconds
-  
+
       // Clear the timer if the component unmounts or if isAuthenticated changes before 5 seconds
       return () => clearTimeout(timerId);
-  
+
       // Dependency array
     }
   }, [isAuthenticated]);
-  
+
 
   const onChange = (e) => setUser({ ...user, [e.target.name]: e.target.value });
 
@@ -115,13 +115,26 @@ const UserDetailsForm = () => {
     return isValid;
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
+    setMessage('');
     if (validateForm()) {
-      register(user);
-      console.log('Submit Button Clicked', user);
+
+      await register(user);
+
+      // if (error) { // Check if the API responded with a message
+      //   setMessage(error);
+      // } else {
+      //   setMessage('Unexpected error, please try again later.');
+      // }
     }
   };
+  useEffect(() => {
+    if (error) {
+      setMessage(error);
+      clearErrors();  // Clear the error after it's been handled to prevent old error messages from persisting.
+    }
+  }, [error, clearErrors]);
 
   const onReset = () => {
     setUser({
@@ -155,7 +168,7 @@ const UserDetailsForm = () => {
           margin: '0 auto'
         }}
       >
-        <Alerts message={message}/>
+        <Alerts message={message} />
         <Box mb={2}>
           <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
             Aadhaar Number<span style={{ color: 'orange' }}>*</span>
